@@ -1,0 +1,46 @@
+
+services:
+
+
+  inventory-service:
+    build: ../PS-Back-UsersTeachers
+    container_name: inventory-service
+    ports:
+      - "8083:8083"
+    networks:
+      - inventory-network
+    depends_on:
+      - mysql-db
+
+
+  mysql-db:
+    image: mysql:8.0
+    container_name: inventory_db-mysql
+    environment:
+      MYSQL_DATABASE: inventory_db
+      MYSQL_USER: inventory_app
+      MYSQL_PASSWORD: inventory_pass
+      MYSQL_ROOT_PASSWORD: root_pass
+
+    ports:
+      - "3308:3306"
+    expose:
+      - "3308"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - inventory-network
+
+
+volumes:
+  mysql-data:
+
+networks:
+  inventory-network:
+    external: true
+    name: shared-network
