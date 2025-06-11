@@ -3,7 +3,7 @@ package org.utn.tup.backinventory.Service.Impl;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.utn.tup.backinventory.Dto.PostItemDto;
+import org.utn.tup.backinventory.Dto.ItemPostDto;
 import org.utn.tup.backinventory.Entity.ItemEntity;
 import org.utn.tup.backinventory.Repository.InventoryRepository;
 import org.utn.tup.backinventory.Service.InventoryService;
@@ -27,10 +27,10 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
-    public PostItemDto addItem(PostItemDto itemDto) {
+    public ItemEntity addItem(ItemPostDto itemDto) {
         ItemEntity entity = modelMapper.map(itemDto, ItemEntity.class);
-        repository.save(entity);
-        return itemDto;
+
+        return repository.save(entity);
     }
 
     @Override

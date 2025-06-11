@@ -3,7 +3,7 @@ services:
 
 
   inventory-service:
-    build: ../PS-Back-UsersTeachers
+    build: ../PS-Back-Inventory
     container_name: inventory-service
     ports:
       - "8083:8083"
@@ -23,9 +23,9 @@ services:
       MYSQL_ROOT_PASSWORD: root_pass
 
     ports:
-      - "3308:3306"
+      - "3309:3306"
     expose:
-      - "3308"
+      - "3309"
     volumes:
       - mysql-data:/var/lib/mysql
     healthcheck:
